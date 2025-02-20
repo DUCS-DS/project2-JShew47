@@ -96,11 +96,13 @@ while not quit:
         node.move()
         node.reflect()
         node.draw()
-
+    nodes.sort(key=lambda node: node.x)
     for i, node1 in enumerate(nodes):
         x1, y1 = node1.x, node1.y
-        for node2 in nodes[i + 1 :]:
-            x2, y2 = node2.x, node2.y
+        for j in range(i + 1, len(nodes)):
+            node2 = nodes[j]
+            x2, y2= node2.x, node2.y
+            if x2 > x1 + 20: break
             d_squared = (x1 - x2) ** 2 + (y1 - y2) ** 2
             if d_squared < thresh:
                 pygame.draw.aaline(
@@ -112,3 +114,5 @@ while not quit:
     print(clock.get_fps())
 
 pygame.quit()
+#Question 1: I was running about 50-51 fps before changes,
+# after changes the fps increased about 9-10 frames running 59-60.
